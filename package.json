@@ -1,0 +1,24 @@
+{
+  "name": "dnd-soundboard-puszczacz",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whostom/dnd-soundboard-puszczacz.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/whostom/dnd-soundboard-puszczacz/issues"
+  },
+  "homepage": "https://github.com/whostom/dnd-soundboard-puszczacz#readme",
+  "description": "",
+  "dependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
