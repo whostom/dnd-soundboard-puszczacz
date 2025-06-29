@@ -1,4 +1,4 @@
-const { exec } = require('child_process')
+const { spawn } = require('child_process')
 const fs = require('fs')
 const path = require('path')
 const io = require('socket.io-client')
@@ -35,16 +35,23 @@ socket.on('play-sound', async (fileName) => {
         console.log('Lowering volume to 30%')
         await setVolume(30)
 
-        let cmd
-        if (ext === '.mp3') cmd = `mpg123 "${filePath}"`
-        else if (ext === '.wav') cmd = `aplay "${filePath}"`
-        else throw new Error(`Unsupported file extension: ${ext}`)
+        let player
+        if (ext === '.mp3')
+            player = spawn('mpg123', [filePath])
+        else if (ext === '.wav')
+            player = spawn('aplay', [filePath])
+        else
+            throw new Error(`Unsupported file extension: ${ext}`)
 
-        exec(cmd, async (err) => {
-            if (err) {
-                console.error('Playback error:', err.message)
-            } else {
+        player.on('error', (err) => {
+            console.error('Playback error:', err.message)
+        })
+
+        player.on('close', async (code) => {
+            if (code === 0) {
                 console.log(`${ext.toUpperCase().slice(1)} played successfully:`, fileName)
+            } else {
+                console.warn(`Player exited with code ${code} for file:`, fileName)
             }
 
             console.log('Restoring volume to 100%')
