@@ -3,9 +3,9 @@ const fs = require('fs')
 const path = require('path')
 const io = require('socket.io-client')
 
-const socket = io('http://192.168.68.167:3000', {
+const socket = io('http://192.168.68.173:3000', {
     auth: {
-        token: 'w20v4qhhcmr355sclv12n6fov' // tu tez poki co brak bezpiecznstwa (poki co) ale ufam ze nikt nie bedzie probowal wejsc na malinke podczas sesji )
+        token: 'w20v4qhhcmr355sclv12n6fov' // tu tez poki co brak bezpiecznstwa (poki co) ale ufam ze nikt nie bedzie probowal wejsc na malinke podczas sesji ;)
     }
 })
 
