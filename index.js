@@ -23,7 +23,7 @@ socket.on('connect', () => {
 })
 
 socket.on('play-sound', async (fileName) => {
-    const filePath = `/mnt/sounds/${fileName}`
+    const filePath = `/mnt/dnd-soundboard/sounds/${fileName}`
     const ext = path.extname(fileName).toLowerCase()
 
     if (!fs.existsSync(filePath)) {
