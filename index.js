@@ -23,43 +23,44 @@ socket.on('connect', () => {
 })
 
 socket.on('play-sound', async (fileName) => {
-    const filePath = `/mnt/sounds/${fileName}`
-    const ext = path.extname(fileName).toLowerCase()
+    console.log("dupa")
+    // const filePath = `/mnt/sounds/${fileName}`
+    // const ext = path.extname(fileName).toLowerCase()
 
-    if (!fs.existsSync(filePath)) {
-        console.error('Sound file not found:', filePath)
-        return
-    }
+    // if (!fs.existsSync(filePath)) {
+    //     console.error('Sound file not found:', filePath)
+    //     return
+    // }
 
-    try {
-        console.log('Lowering volume to 30%')
-        await setVolume(30)
+    // try {
+    //     console.log('Lowering volume to 30%')
+    //     await setVolume(30)
 
-        let player
-        if (ext === '.mp3')
-            player = spawn('mpg123', [filePath])
-        else if (ext === '.wav')
-            player = spawn('aplay', [filePath])
-        else
-            throw new Error(`Unsupported file extension: ${ext}`)
+    //     let player
+    //     if (ext === '.mp3')
+    //         player = spawn('mpg123', [filePath])
+    //     else if (ext === '.wav')
+    //         player = spawn('aplay', [filePath])
+    //     else
+    //         throw new Error(`Unsupported file extension: ${ext}`)
 
-        player.on('error', (err) => {
-            console.error('Playback error:', err.message)
-        })
+    //     player.on('error', (err) => {
+    //         console.error('Playback error:', err.message)
+    //     })
 
-        player.on('close', async (code) => {
-            if (code === 0) {
-                console.log(`${ext.toUpperCase().slice(1)} played successfully:`, fileName)
-            } else {
-                console.warn(`Player exited with code ${code} for file:`, fileName)
-            }
+    //     player.on('close', async (code) => {
+    //         if (code === 0) {
+    //             console.log(`${ext.toUpperCase().slice(1)} played successfully:`, fileName)
+    //         } else {
+    //             console.warn(`Player exited with code ${code} for file:`, fileName)
+    //         }
 
-            console.log('Restoring volume to 100%')
-            await setVolume(100)
-        })
+    //         console.log('Restoring volume to 100%')
+    //         await setVolume(100)
+    //     })
 
-    } catch (err) {
-        console.error('Error:', err.message)
-        await setVolume(100)
-    }
+    // } catch (err) {
+    //     console.error('Error:', err.message)
+    //     await setVolume(100)
+    // }
 })
