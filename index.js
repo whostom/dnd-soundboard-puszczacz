@@ -22,7 +22,7 @@ socket.on('connect', () => {
     console.log('Connected to Socket.IO server')
 })
 
-socket.on('play-sound', async (fileName) => {
+socket.on('play-sound', (fileName) => {
     console.log("dupa")
     // const filePath = `/mnt/sounds/${fileName}`
     // const ext = path.extname(fileName).toLowerCase()
