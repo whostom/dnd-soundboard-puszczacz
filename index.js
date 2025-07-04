@@ -11,7 +11,7 @@ const socket = io('http://192.168.68.173:3000', {
 
 function setVolume(percent) {
     return new Promise((resolve, reject) => {
-        exec(`amixer -D softvol sset 'SpotifyDupa123' ${percent}%`, (err) => {
+        exec(`amixer -D softvol sset 'SpotifyDupa123' ${percent}%`, (err,stdout,stderr) => {
             if (err) reject(err)
             else resolve()
         })
@@ -37,9 +37,9 @@ socket.on('play-sound', async (fileName) => {
 
         let player
         if (ext === '.mp3')
-            player = spawn('mpg123', [filePath])
+            player = spawn('/usr/bin/mpg123', [filePath])
         else if (ext === '.wav')
-            player = spawn('aplay', [filePath])
+            player = spawn('/usr/bin/aplay', [filePath])
         else
             throw new Error(`Unsupported file extension: ${ext}`)
 
