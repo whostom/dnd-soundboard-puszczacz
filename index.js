@@ -33,9 +33,9 @@ socket.on('play-sound', async (fileName) => {
 
         let player
         if (ext === '.mp3')
-            player = spawn('mpg123', ['-o', 'alsa', '--device=default', filePath])
+            player = spawn('/usr/bin/mpg123', ['-o', 'alsa', '--device=default', filePath])
         else if (ext === '.wav')
-            player = spawn('aplay', ['-D', 'default', filePath])
+            player = spawn('/usr/bin/aplay', ['-D', 'default', filePath])
         else
             throw new Error(`Unsupported file extension: ${ext}`)
 
