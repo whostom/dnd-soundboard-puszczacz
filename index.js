@@ -3,11 +3,7 @@ const fs = require('fs')
 const path = require('path')
 const io = require('socket.io-client')
 
-const socket = io('http://192.168.68.173:3000', {
-    auth: {
-        token: 'w20v4qhhcmr355sclv12n6fov' // tu tez poki co brak bezpiecznstwa (poki co) ale ufam ze nikt nie bedzie probowal wejsc na malinke podczas sesji ;)
-    }
-})
+const socket = io('http://192.168.68.173:3000')
 
 function setVolume(percent) {
     return new Promise((resolve, reject) => {
@@ -37,9 +33,9 @@ socket.on('play-sound', async (fileName) => {
 
         let player
         if (ext === '.mp3')
-            player = spawn('/usr/bin/mpg123', [filePath])
+            player = spawn('mpg123', ['-o', 'alsa', '--device=default', filePath])
         else if (ext === '.wav')
-            player = spawn('/usr/bin/aplay', [filePath])
+            player = spawn('aplay', ['-D', 'default', filePath])
         else
             throw new Error(`Unsupported file extension: ${ext}`)
 
