@@ -7,7 +7,7 @@ const socket = io('http://192.168.68.173:3000')
 
 function setVolume(percent) {
     return new Promise((resolve, reject) => {
-        exec(`amixer -D softvol sset 'SpotifyDupa123' ${percent}%`, (err,stdout,stderr) => {
+        exec(`amixer -c 0 sset 'SpotifyDupa123' ${percent}%`, (err,stdout,stderr) => {
             if (err) reject(err)
             else resolve()
         })
@@ -28,12 +28,12 @@ socket.on('play-sound', async (fileName) => {
     }
 
     try {
-        console.log('Lowering volume to 30%')
-        await setVolume(30)
+        console.log('Lowering volume to 50%')
+        await setVolume(50)
 
         let player
         if (ext === '.mp3')
-            player = spawn('/usr/bin/mpg123', ['-o', 'alsa', '--device=default', filePath])
+            player = spawn('/usr/bin/mpg123', ['-o', 'alsa', '-a', 'default_no_softvol', filePath])
         else if (ext === '.wav')
             player = spawn('/usr/bin/aplay', ['-D', 'default', filePath])
         else
